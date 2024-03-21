@@ -6,6 +6,7 @@ const Book = require("../models/Book");
 /* GET users listing. */
 router.get("/", (req, res, next) => {
   Book.find()
+    .populate('author')
     .then((foundBooks) => {
       console.log("These are the found books===>", foundBooks);
       res.json(foundBooks);
@@ -18,6 +19,7 @@ router.get("/", (req, res, next) => {
 
 router.get("/details/:bookId", (req, res, next) => {
   Book.findById(req.params.bookId)
+    .populate('author')
     .then((foundBooks) => {
       console.log("These are the found books===>", foundBooks);
       res.json(foundBooks);
@@ -28,7 +30,7 @@ router.get("/details/:bookId", (req, res, next) => {
     });
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { title, year, codeISBN, quantity, genre, author } = req.body;
 
   Book.create({

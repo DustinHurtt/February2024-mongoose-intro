@@ -12,7 +12,10 @@ const bookSchema = new Schema(
       type: String,
       enum: ["romance", "fiction", "biography", "poetry"],
     },
-    author: String,
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'Author'
+    },
   },
   {
     timestamps: true,
